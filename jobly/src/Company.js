@@ -1,42 +1,61 @@
 import React from 'react'
+import {v4 as uuid} from "uuid"
 import {
   Badge, 
   Card, 
+  Col, 
   Image,
-  ListGroup
+  ListGroup,
+  ListGroupItem,
+  Row,
+  Spinner
 } from 'react-bootstrap' 
+import { useParams } from 'react-router'
+import { useFetchCompany } from "./hooks/useFetch"
+import Job from './Job'
 
-const Company = ({
-  name,
-  handle,
-  numEmployees,
-  description,
-  logoUrl,
-  jobs}) => {
+const Company = () => {
 
-    
+    const { handle } = useParams()
+
+    const [ company ] = useFetchCompany(handle)
+
   return (
-    <Card >
+    <>
+    {company && handle?
+    (<Card >
+      
       <Card.Body> 
-        <Card.Title>
-          {name}<Badge as={Image} src={logoUrl}/>
-        </Card.Title>
-        <Card.Text>
-          {description}
-        </Card.Text>
-        {jobs?
+        <Row>
+          <Col xs={10}>
+          <Card.Title  className="text-left">
+            {company.name}<Badge as={Image} src={company.logoUrl}/>
+          </Card.Title>
+          <Card.Text  className="text-left">
+            {company.description}
+          </Card.Text>
+          </Col>
+          <Col>
+            <Image src={company.logoUrl} />
+          </Col>
+        </Row>
         <ListGroup>
-          <ListGroup.Item>Cras justo odio</ListGroup.Item>
-          <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-          <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-          <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-          <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-        </ListGroup>
-        :""
-        }
+          {company.jobs.map(({companyHandle, ...items})=>(
+            <ListGroupItem key={uuid()}>
+              <Job {...items}/>
+            </ListGroupItem>
+          ))}
+      </ListGroup>
       </Card.Body>
-    </Card>
+    </Card>)
+    :
+    (<Spinner animation="border" role="status">
+      <span className="sr-only">Loading...</span>
+    </Spinner>)
+   }
+  </>
   )
 }
- 
+
+
 export default Company

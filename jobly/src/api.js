@@ -29,7 +29,7 @@ class JoblyApi {
     try {
       return (await axios({ url, method, data, params, headers })).data;
     } catch (err) {
-      console.error("API Error:", err.response);
+      console.error("API Error:", err);
       let message = err.response.data.error.message;
       throw Array.isArray(message) ? message : [message];
     }
@@ -40,6 +40,7 @@ class JoblyApi {
   /** Get details on a company by handle. */
 
   static async getCompany(handle) {
+    
     let res = await this.request(`companies/${handle}`);
     return res.company;
   }
@@ -54,20 +55,31 @@ class JoblyApi {
 
   //Grouping API routes
 
-  /** Get all Companies */
-  static async getCompanies(query="") {
-
-    let res = await this.request(`companies/`);
-    console.log(res)
+  /** Get all Companies. Searching can be accomplished by query string*/
+  static async getCompanies(queryString="") {
+    let res = await this.request(`companies${queryString}`);
     return res.companies;
   }
 
-  /** Get all Companies */
+  /** Get all Jobs */
   static async getJobs() {
     let res = await this.request(`jobs/`);
     return res.jobs;
   }
+
+  /** User Login */
+  static async Login() {
+    let res = await this.request(`jobs/`);
+    return res.jobs;
+  }
+
+  /** User register */
+  static async Signup(formData) {
+    let res = await this.request(`auth/register`,formData,"post");
+    return res.jobs;
+  }
 }
+
 
 // for now, put token ("testuser" / "password" on class)
 JoblyApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
