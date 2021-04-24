@@ -20,7 +20,7 @@ const SearchForm = ({search}) => {
     const handleSubmit = async (evt)=> {
         evt.preventDefault();
         formData.name !=="" ?
-            search(querystring.stringify(formData))
+            search(`?${querystring.stringify(formData)}`)
             :search("")
       };
 

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 import { useFetchCompanies } from "./hooks/useFetch"
 
-import SearchForm from "./SignupForm"
+import SearchForm from "./SearchForm"
 
 const Companies = () => {
   const [companies,loading, search] = useFetchCompanies()
