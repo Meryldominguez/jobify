@@ -7,8 +7,7 @@ import {
     FormGroup,
     FormControl,
     InputGroup,
-    Col,
-    FormLabel
+    Col
  } from 'react-bootstrap'
  
 const SearchForm = ({search}) => {

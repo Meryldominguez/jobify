@@ -68,15 +68,15 @@ class JoblyApi {
   }
 
   /** User Login */
-  static async Login() {
-    let res = await this.request(`jobs/`);
-    return res.jobs;
+  static async Login(formData) {
+    let res = await this.request(`auth/token`,formData,"post");
+    return res;
   }
 
   /** User register */
   static async Signup(formData) {
     let res = await this.request(`auth/register`,formData,"post");
-    return res.jobs;
+    return res;
   }
 }
 
