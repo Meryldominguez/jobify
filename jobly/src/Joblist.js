@@ -19,8 +19,7 @@ const JobList = ({items}) => {
               <Card.Subtitle className="text-left">
                 <Link to={`/companies/${job.companyHandle}`}>{job.companyName}</Link>
               </Card.Subtitle>
-              <Card.Text className="p-2">
-                <Row>
+              <Row className="p-2 row card-text">
                 <Col>
                   <Row>Salary: {job.salary? job.salary:"No Salary"}</Row>
                   <Row>Equity: {job.equity ? job.equity: "0"}</Row>
@@ -28,11 +27,10 @@ const JobList = ({items}) => {
                 <Col md={5} >
                   <Button size="lg" className="p-2 mt-2" block>Apply</Button>
                 </Col>
-                </Row>
-              </Card.Text>
+              </Row>
             </Card.Body>
-            </Card>
-          </ListGroup.Item>
+          </Card>
+        </ ListGroup.Item>
           ))}
     </ListGroup>
     : 

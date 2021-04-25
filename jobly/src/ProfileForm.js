@@ -10,7 +10,7 @@ import {
  } from 'react-bootstrap'
 import { useGetUserProfile } from './hooks/useFetch'
  
-const ProfileForm = ({username}) => {
+const ProfileForm = ({user,username}) => {
 
     let [[profile, setProfile], isLoading, authProfile, updateProfile] = useGetUserProfile(username)
     
@@ -132,7 +132,6 @@ const ProfileForm = ({username}) => {
     </Col>
     :
     <Spinner animation="border" role="status">
-        
         <span className="sr-only">Loading...</span>
     </Spinner>}
     </>

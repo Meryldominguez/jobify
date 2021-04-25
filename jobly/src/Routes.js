@@ -37,6 +37,7 @@ function Routes({user, login, signup}) {
             (<>
             <h1>Hello, {user.username}</h1>
               <p>
+                {console.log(user)}
                 Apply for jobs! Make money
               </p>
                 <Link className="btn btn-primary btn-lg mx-2" to="/companies"> Companies</Link>
@@ -54,6 +55,12 @@ function Routes({user, login, signup}) {
             )
             }
           </Jumbotron>
+          </Route>
+          <Route exact path="/login">
+          {!user? <LoginForm login={(data)=>login(data)}/>: <Redirect to="/" /> }
+          </Route>
+          <Route exact path="/signup">
+          {!user? <SignupForm signup={(data)=>signup(data)}/>: <Redirect to="/" /> }
           </Route>
           <Route exact path="/companies/:handle">
             {user? <Company />: <Redirect to="/" /> }

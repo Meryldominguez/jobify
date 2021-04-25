@@ -20,7 +20,7 @@ function Nav({user, logout=()=> console.log("Logged out")}) {
       <Navbar.Collapse id="basic-navbar-nav">
         <N className="ml-auto">
           
-          {user.username && user.token? 
+          {user? 
           <>
           <N.Link as={Link} to="/companies">Companies</N.Link>
           <N.Link as={Link} to="/jobs">Jobs</N.Link>
@@ -30,6 +30,7 @@ function Nav({user, logout=()=> console.log("Logged out")}) {
           :
           <>
           <N.Link as={Link} to="/login">Login</N.Link>
+          {/* <N.Link onClick={logout} >Logout</N.Link> */}
           <N.Link as={Link} to="/signup">Signup</N.Link>
           </>
           }
