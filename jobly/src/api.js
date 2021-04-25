@@ -96,7 +96,7 @@ class JoblyApi {
   static async apply(username,jobId) {
     console.log(username,jobId,"what got sent")
     JoblyApi.token = window.localStorage.token
-    let res = await this.request(`users/${username}/jobs`, "post");
+    let res = await this.request(`users/${username}/jobs/${jobId}`, "post");
     return res;
   }
 

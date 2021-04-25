@@ -38,6 +38,7 @@ const useAuth = () => {
     const logout = ()=>{
         window.localStorage.clear()
         setUser()
+        window.location.reload()
     }
 
     return [user, signup, login, logout]

@@ -18,3 +18,5 @@ issues:
   - [loggedInUser, Login(user, password), Logout()]
   - includes a useEffect to check for user in localstorage?
   - use Context in App to store this
+- adding user on context
+- rerouting after logout
