@@ -1,28 +1,29 @@
-import React from "react"
+import React, { useContext } from "react"
 import {
   Switch,
   Route,
   Redirect,
   Link,
-  useHistory
+  // useHistory
 } from "react-router-dom"
 import {
   Jumbotron,
-  Button,
-  Pagination
+  // Pagination
 } from "react-bootstrap"
 
-import './App.css';
 import Companies from "./components/Companies";
 import Company from "./components/Company";
 import JobList from "./components/Joblist";
+
 import SignupForm from "./forms/SignupForm";
 import LoginForm from "./forms/LoginForm";
 import ProfileForm from "./forms/ProfileForm";
 
-function Routes({user, login, signup}) {
-  const history = useHistory()
+import UserContext from "./context/UserContext";
 
+function Routes({login, signup}) {
+  // const history = useHistory()
+  const {user, isLoading} = useContext(UserContext)
   return (
     
       <div className="Content-Container">
@@ -55,27 +56,36 @@ function Routes({user, login, signup}) {
             }
           </Jumbotron>
           </Route>
+          {!user && isLoading?
+          <>
           <Route exact path="/login">
-          {!user? <LoginForm login={(data)=>login(data)}/>: <Redirect to="/" /> }
+           <LoginForm login={(data)=>login(data)}/>
           </Route>
           <Route exact path="/signup">
-          {!user? <SignupForm signup={(data)=>signup(data)}/>: <Redirect to="/" /> }
+            <SignupForm signup={(data)=>signup(data)}/>
           </Route>
+          </>
+          :
+          <>
           <Route exact path="/companies/:handle">
-            {user? <Company />: <Redirect to="/" /> }
+            <Company />
           </Route>
 
           <Route exact path="/companies">
-          {user? <Companies />: <Redirect to="/" /> }
+           <Companies />
           </Route>
 
           <Route exact path="/jobs">
-            {user? <JobList />: <Redirect to="/" /> }
+            <JobList />
           </Route>
 
           <Route exact path="/profile">
-          {user? <ProfileForm username={user.username}/>: <Redirect to="/" /> }
+            <ProfileForm />
           </Route>
+          </>
+          }
+          
+          
           <Redirect to="/" />
         </Switch>  
       </div>

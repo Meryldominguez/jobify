@@ -62,6 +62,7 @@ const useGetUserProfile = (username) => {
     const updateProfile = async (data) => {
         const resp = await JoblyApi.patchProfile(username,data)
         setProfile(resp.user)
+        return resp
     }
     const authProfile = async (password) => {
         const resp = await JoblyApi.Login({username,password})

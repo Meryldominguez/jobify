@@ -1,15 +1,19 @@
 import React, {useState} from 'react'
-
+import {v4 as uuid} from "uuid"
 import { 
     Button,
     Form,
     Card,
-    Col
+    Col,
+    Alert
 } from 'react-bootstrap'
 import { useHistory } from 'react-router';
+import AlertContainer from '../components/AlertContainer';
  
 const LoginForm = ({login}) => {
     const history = useHistory()
+    const [alerts, setAlerts] = useState([])
+    
     const [formData, setFormData] = useState(
         {
             username:"",
@@ -18,9 +22,21 @@ const LoginForm = ({login}) => {
 
     const handleSubmit = async (evt)=> {
         evt.preventDefault();
-        login(formData)
-        history.push("/")
-      };
+        setAlerts([])
+        try {
+            await login(formData)
+            history.push("/")
+        } catch (error) {
+            setFormData({
+                username:"",
+                password:""
+            })
+            let alertArr=[]
+            error.forEach(e=>alertArr.push({key:uuid(),msg:e})) 
+            setAlerts(alertArr)
+    
+        }
+              };
 
     const handleChange = evt => {
         const {name,value} = evt.target;
@@ -34,7 +50,7 @@ const LoginForm = ({login}) => {
     <Col xs={8} className="m-auto">
     <Card className="p-3 my-5">
         <h4>Login to your Jobify account:</h4>
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} className="my-3">
         <Form.Group controlId="formBasicUsername">
             <Form.Control 
                 type="text" 
@@ -57,6 +73,7 @@ const LoginForm = ({login}) => {
             Login
         </Button>
     </Form>
+        <AlertContainer alerts={[...alerts]} />
     </Card>
     </Col>
   )

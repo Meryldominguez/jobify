@@ -3,7 +3,8 @@ import { useHistory } from "react-router"
 import JoblyApi from "../api"
 
 const useAuth = () => {
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState()
+    const history = useHistory()
     
     useEffect(()=>{
         if (window.localStorage.username) {
@@ -16,24 +17,24 @@ const useAuth = () => {
 
     const signup = async (formData)=>{
         const resp = await JoblyApi.Signup(formData)
-        console.log(resp)
         if (!resp.error){
             window.localStorage.setItem("username",resp.username)
             window.localStorage.setItem("token",resp.token)
         }
-        return Error
+        return resp.error
     }
     
     const login = async ({username,password})=>{
         const resp = await JoblyApi.Login({username, password})
-
+        console.log(resp)
         if (!resp.error){
             JoblyApi.token = resp.token
             window.localStorage.setItem("username",resp.username)
             window.localStorage.setItem("token",resp.token)
             setUser({...resp, username})
+            return  
         }
-        return Error
+        return resp.error
     }
     const logout = ()=>{
         window.localStorage.clear()

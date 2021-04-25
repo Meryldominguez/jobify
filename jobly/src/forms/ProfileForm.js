@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
+import {v4 as uuid} from "uuid"
 
 import { 
     Button,
@@ -6,16 +7,16 @@ import {
     Card,
     Col,
     Row,
-    Spinner
  } from 'react-bootstrap'
-import { useGetUserProfile } from './hooks/useFetch'
-import LoadingSpinner from './Spinner'
+import LoadingSpinner from '../components/Spinner'
+import UserContext from '../context/UserContext'
+import AlertContainer from '../components/AlertContainer'
  
-const ProfileForm = ({user,username}) => {
+const ProfileForm = () => {
 
-    let [[profile, setProfile], isLoading, authProfile, updateProfile] = useGetUserProfile(username)
-    
+    const {user,profile, authProfile, isLoading, updateProfile, setProfile}= useContext(UserContext)    
     const [formData, setFormData] = useState(profile);
+    const [alerts, setAlerts] = useState([])
 
     useEffect(()=>{
         let email, firstName, lastName
@@ -29,8 +30,22 @@ const ProfileForm = ({user,username}) => {
 
     const handleSubmit = async (evt)=> {
         evt.preventDefault();
-        if (await authProfile(formData.password)) updateProfile(formData)
-        setFormData({...formData,password:""})
+        setAlerts([])
+        try {
+            if(!formData.password) throw Array("Password required to confirm changes!")
+            if (await authProfile(formData.password)){
+                await updateProfile(formData)
+                setFormData({...formData,password:""})
+            } 
+            
+        } catch (error) {
+            console.log("handle",error)
+            setFormData({...formData, password:""})
+            let alertArr=[]
+            error.forEach(e=>alertArr.push({key:uuid(),msg:e})) 
+            setAlerts(alertArr)
+        }
+        
     };
 
     const handleChange = evt => {
@@ -71,8 +86,9 @@ const ProfileForm = ({user,username}) => {
             <Form.Control 
                 disabled
                 type="text" 
-                placeholder={username}
+                placeholder={user.username}
                 name="username"
+                onChange={handleChange}
                 />
         </Form.Group>
         <Form.Group >
@@ -101,7 +117,7 @@ const ProfileForm = ({user,username}) => {
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
             <Form.Control 
-                required
+                
                 type="password" 
                 placeholder="Password"
                 name="password"
@@ -129,6 +145,7 @@ const ProfileForm = ({user,username}) => {
             </Col>
         </Row>
     </Form>
+        <AlertContainer alerts={alerts} />
     </Card>
     </Col>
     :
