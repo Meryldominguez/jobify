@@ -1,3 +1,4 @@
+import { Alert } from 'react-bootstrap';
 import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 import useAuth from './hooks/useAuth';
@@ -10,7 +11,9 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Nav logout={logout}/>
+        <Nav 
+        user={user}
+        logout={logout}/>
         <Routes 
           user={user}
           login={login}

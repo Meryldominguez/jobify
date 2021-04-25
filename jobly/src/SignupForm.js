@@ -3,23 +3,21 @@ import React, {useState} from 'react'
 import { 
     Button,
     Form,
-    FormGroup,
-    FormControl,
-    InputGroup,
+    Card,
     Col,
     Row,
 
  } from 'react-bootstrap'
  
 const SignupForm = ({signup}) => {
-    const [formData, setFormData] = useState(
-        {
-            username:"",
-            firstName:"",
-            lastName:"",
-            email:"",
-            password:""
-        });
+    const initialState = {
+        username:"",
+        firstName:"",
+        lastName:"",
+        email:"",
+        password:""
+    }
+    const [formData, setFormData] = useState(initialState);
 
     const handleSubmit = async (evt)=> {
         evt.preventDefault();
@@ -34,7 +32,10 @@ const SignupForm = ({signup}) => {
         });
     };
   return (
-    <Form onSubmit={handleSubmit}>
+    <Col xs={8} className="m-auto">
+    <Card className="p-3 my-5">
+        <h4>Sign up for Jobify!</h4>
+    <Form onSubmit={handleSubmit} className="my-4">
         <Form.Group controlId="formBasicEmail">
             <Form.Control 
                 required
@@ -44,7 +45,7 @@ const SignupForm = ({signup}) => {
                 value={formData.email}
                 onChange={handleChange}
                 />
-            <Form.Text className="text-muted">
+            <Form.Text className="text-muted text-left">
             We'll never share your email with anyone else.
             </Form.Text>
         </Form.Group>
@@ -57,7 +58,7 @@ const SignupForm = ({signup}) => {
                 value={formData.username}
                 onChange={handleChange}
                 />
-            <Form.Text className="text-muted">
+            <Form.Text className="text-muted text-left">
             You will log in with this.
             </Form.Text>
         </Form.Group>
@@ -70,7 +71,7 @@ const SignupForm = ({signup}) => {
                 value={formData.password}
                 onChange={handleChange}
             />
-            <Form.Text className="text-muted">
+            <Form.Text className="text-muted text-left">
             You should choose a good password.
             </Form.Text>
         </Form.Group>
@@ -97,15 +98,25 @@ const SignupForm = ({signup}) => {
                      />
                 </Col>
             </Row>
-            <Form.Text className="text-muted">
+            <Form.Text className="text-muted text-left">
             We need your name so you can apply to jobs!.
             </Form.Text>
         </Form.Group>
-
-        <Button variant="primary" type="submit">
-            Signup
-        </Button>
+        <Row>
+            <Col xs={9}>
+                <Button variant="primary" block type="submit" >
+                    Signup
+                </Button>
+            </Col>
+            <Col xs={3}>
+                <Button variant="danger" block onClick={()=>setFormData(initialState)}>
+                    Reset
+                </Button>
+            </Col>
+        </Row>
     </Form>
+    </Card>
+    </Col>
   )
 }
  

@@ -25,10 +25,10 @@ function Routes({user, login, signup}) {
   return (
     
       <div className="Content-Container">
-        <Pagination>
+        {/* <Pagination>
       <Pagination.Prev onClick={history.goBack}/>
       <Pagination.Next  onClick={history.goForward}/>
-        </Pagination>
+        </Pagination> */}
       
         {user.username && user.token?
         (<Switch>
@@ -84,6 +84,7 @@ function Routes({user, login, signup}) {
           <Route exact path="/signup">
             <SignupForm signup={(data)=>signup(data)}/>
           </Route>
+          <Redirect to="/" />
         </Switch>
         ) }
         

@@ -11,7 +11,7 @@ import {
 } from "react-router-dom"
 import './App.css';
 
-function Nav({isLoggedin=true, logout=()=> console.log("Logged out")}) {
+function Nav({user, logout=()=> console.log("Logged out")}) {
 
   return (
     <Navbar bg="light" expand="md">
@@ -20,7 +20,7 @@ function Nav({isLoggedin=true, logout=()=> console.log("Logged out")}) {
       <Navbar.Collapse id="basic-navbar-nav">
         <N className="ml-auto">
           
-          {isLoggedin? 
+          {user.username && user.token? 
           <>
           <N.Link as={Link} to="/companies">Companies</N.Link>
           <N.Link as={Link} to="/jobs">Jobs</N.Link>

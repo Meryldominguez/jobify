@@ -3,13 +3,9 @@ import React, {useState} from 'react'
 import { 
     Button,
     Form,
-    FormGroup,
-    FormControl,
-    InputGroup,
-    Col,
-    Row,
-
- } from 'react-bootstrap'
+    Card,
+    Col
+} from 'react-bootstrap'
 import { useHistory } from 'react-router';
  
 const LoginForm = ({login}) => {
@@ -34,6 +30,10 @@ const LoginForm = ({login}) => {
         });
     };
   return (
+
+    <Col xs={8} className="m-auto">
+    <Card className="p-3 my-5">
+        <h4>Login to your Jobify account:</h4>
     <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicUsername">
             <Form.Control 
@@ -57,6 +57,8 @@ const LoginForm = ({login}) => {
             Login
         </Button>
     </Form>
+    </Card>
+    </Col>
   )
 }
  
