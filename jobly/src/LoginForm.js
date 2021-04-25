@@ -19,7 +19,7 @@ const LoginForm = ({login}) => {
     const handleSubmit = async (evt)=> {
         evt.preventDefault();
         login(formData)
-        //history.push("/profile")
+        history.push("/")
       };
 
     const handleChange = evt => {

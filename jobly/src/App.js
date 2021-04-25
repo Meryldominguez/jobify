@@ -12,8 +12,9 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Nav 
-        user={user}
-        logout={logout}/>
+          user={user}
+          logout={logout}
+        />
         <Routes 
           user={user}
           login={login}

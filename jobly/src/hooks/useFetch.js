@@ -45,5 +45,30 @@ const useFetchJobs = () => {
     },[])
     return [jobs]
 }
+const useGetUserProfile = (username) => {
+    const [profile, setProfile] = useState()
+    const [isLoading, setIsLoading] = useState(true)
 
-export {useFetchCompanies,useFetchJobs, useFetchCompany}
+    useEffect(()=>{
+        setIsLoading(true)
+        async function load(){
+            const res = await JoblyApi.getProfile(username)
+            setProfile(res.user)
+            setIsLoading(false)
+            }
+        if (username) load()
+    },[username])
+
+    const updateProfile = async (data) => {
+        const resp = await JoblyApi.patchProfile(username,data)
+        console.log(resp)
+    }
+    const authProfile = async (password) => {
+        const resp = await JoblyApi.Login({username,password})
+        return resp.token? true: false
+    }
+
+    return [[profile,setProfile], isLoading, authProfile, updateProfile]
+}
+
+export {useFetchCompanies,useFetchJobs, useFetchCompany, useGetUserProfile}
