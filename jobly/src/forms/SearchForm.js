@@ -34,7 +34,6 @@ const SearchForm = ({search}) => {
     <Form onSubmit={handleSubmit}>
         <Col>
         <FormGroup> 
-            
             <InputGroup className="mb-3">
                 <FormControl
                 placeholder="..."

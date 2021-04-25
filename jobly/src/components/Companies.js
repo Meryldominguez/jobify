@@ -3,9 +3,9 @@ import {v4 as uuid} from "uuid"
 import { ListGroup, Spinner, Card, Badge, Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-import { useFetchCompanies } from "./hooks/useFetch"
+import { useFetchCompanies } from "../hooks/useFetch"
 
-import SearchForm from "./SearchForm"
+import SearchForm from "../forms/SearchForm"
 import LoadingSpinner from './Spinner'
 
 const Companies = () => {

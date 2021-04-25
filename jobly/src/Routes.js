@@ -13,12 +13,12 @@ import {
 } from "react-bootstrap"
 
 import './App.css';
-import Companies from "./Companies";
-import Company from "./Company";
-import JobList from "./Joblist";
-import SignupForm from "./SignupForm";
-import LoginForm from "./LoginForm";
-import ProfileForm from "./ProfileForm";
+import Companies from "./components/Companies";
+import Company from "./components/Company";
+import JobList from "./components/Joblist";
+import SignupForm from "./forms/SignupForm";
+import LoginForm from "./forms/LoginForm";
+import ProfileForm from "./forms/ProfileForm";
 
 function Routes({user, login, signup}) {
   const history = useHistory()

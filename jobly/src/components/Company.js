@@ -11,7 +11,7 @@ import {
   Spinner
 } from 'react-bootstrap' 
 import { useParams } from 'react-router'
-import { useFetchCompany } from "./hooks/useFetch"
+import { useFetchCompany } from "../hooks/useFetch"
 import Job from './Job'
 
 const Company = () => {
