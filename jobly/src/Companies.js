@@ -6,17 +6,21 @@ import { Link } from 'react-router-dom'
 import { useFetchCompanies } from "./hooks/useFetch"
 
 import SearchForm from "./SearchForm"
+import LoadingSpinner from './Spinner'
 
 const Companies = () => {
   const [companies,loading, search] = useFetchCompanies()
   
   return (
     <>
-    < SearchForm search={(q)=>search(q)} />
-    {loading && 
-    (<Spinner animation="border" role="status">
-      <span className="sr-only">Loading...</span>
-    </Spinner>)}
+    <div 
+      col={8}
+      className="mx-auto my-4"
+    >
+      <h3>Companies</h3>
+      <SearchForm search={(q)=>search(q)} />
+    </div>
+    {loading && <LoadingSpinner />}
     {companies &&
     (<ListGroup>
       {companies.map(c=>(

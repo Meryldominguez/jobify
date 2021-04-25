@@ -9,6 +9,7 @@ import {
     Spinner
  } from 'react-bootstrap'
 import { useGetUserProfile } from './hooks/useFetch'
+import LoadingSpinner from './Spinner'
  
 const ProfileForm = ({user,username}) => {
 
@@ -131,9 +132,7 @@ const ProfileForm = ({user,username}) => {
     </Card>
     </Col>
     :
-    <Spinner animation="border" role="status">
-        <span className="sr-only">Loading...</span>
-    </Spinner>}
+    <LoadingSpinner />}
     </>
     )
 }

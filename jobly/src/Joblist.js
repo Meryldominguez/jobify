@@ -3,6 +3,7 @@ import { Button, Card, Col, ListGroup, Row, Spinner } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import {v4 as uuid} from "uuid"
 import { useFetchJobs } from './hooks/useFetch'
+import LoadingSpinner from './Spinner'
  
 const JobList = ({items}) => {
   const [jobs] = useFetchJobs()
@@ -34,9 +35,7 @@ const JobList = ({items}) => {
           ))}
     </ListGroup>
     : 
-    <Spinner animation="border" role="status">
-      <span className="sr-only">Loading...</span>
-    </Spinner>
+    <LoadingSpinner />
 }
  
 export default JobList

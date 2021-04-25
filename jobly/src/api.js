@@ -89,8 +89,14 @@ class JoblyApi {
   static async patchProfile(username,{password,...data}) {
     console.log(data,"what got sent")
     JoblyApi.token = window.localStorage.token
-    let res = await this.request(`users/${username}`,data, "patch");
-    console.log(res)
+    let res = await this.request(`users/${username}`, data, "patch");
+    return res;
+  }
+  /** User profile edit */
+  static async apply(username,jobId) {
+    console.log(username,jobId,"what got sent")
+    JoblyApi.token = window.localStorage.token
+    let res = await this.request(`users/${username}/jobs`, "post");
     return res;
   }
 

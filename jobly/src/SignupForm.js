@@ -32,6 +32,7 @@ const SignupForm = ({signup}) => {
         });
     };
   return (
+    
     <Col xs={8} className="m-auto">
     <Card className="p-3 my-5">
         <h4>Sign up for Jobify!</h4>

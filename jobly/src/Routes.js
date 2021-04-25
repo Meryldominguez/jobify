@@ -37,7 +37,6 @@ function Routes({user, login, signup}) {
             (<>
             <h1>Hello, {user.username}</h1>
               <p>
-                {console.log(user)}
                 Apply for jobs! Make money
               </p>
                 <Link className="btn btn-primary btn-lg mx-2" to="/companies"> Companies</Link>
