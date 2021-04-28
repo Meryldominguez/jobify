@@ -8,11 +8,12 @@ import {
   ListGroup,
   ListGroupItem,
   Row,
-  Spinner
+  
 } from 'react-bootstrap' 
 import { useParams } from 'react-router'
 import { useFetchCompany } from "../hooks/useFetch"
 import Job from './Job'
+import LoadingSpinner from './Spinner'
 
 const Company = () => {
 
@@ -49,9 +50,7 @@ const Company = () => {
       </Card.Body>
     </Card>)
     :
-    (<Spinner animation="border" role="status">
-      <span className="sr-only">Loading...</span>
-    </Spinner>)
+    <LoadingSpinner />
    }
   </>
   )

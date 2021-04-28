@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {v4 as uuid} from "uuid"
-import { ListGroup, Spinner, Card, Badge, Image } from 'react-bootstrap'
+import { ListGroup, Card, Badge, Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 import { useFetchCompanies } from "../hooks/useFetch"

@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react"
-import { useLocation } from "react-router"
 import JoblyApi from "../api"
-// import Company from "../Company"
-// import {v4 as uuid} from "uuid"
 
 const useFetchCompanies = () => {
     const [query, setQuery] = useState("")
@@ -57,7 +54,8 @@ const useGetUserProfile = (username) => {
             setIsLoading(false)
             }
         if (username) load()
-    },[username])
+        setIsLoading(false)
+    },[username, isLoading])
 
     const updateProfile = async (data) => {
         const resp = await JoblyApi.patchProfile(username,data)

@@ -27,12 +27,13 @@ const LoginForm = ({login}) => {
             await login(formData)
             history.push("/")
         } catch (error) {
+            console.log(error)
             setFormData({
                 username:"",
                 password:""
             })
             let alertArr=[]
-            error.forEach(e=>alertArr.push({key:uuid(),msg:e})) 
+            error.map(e=>alertArr.push({key:uuid(),msg:e})) 
             setAlerts(alertArr)
     
         }

@@ -4,7 +4,7 @@ import useAuth from './hooks/useAuth';
 import {useGetUserProfile} from "./hooks/useFetch"
 
 import Nav from './Nav';
-import Routes from './Routes';
+import Routes from './routes/Routes';
 import UserContext from './context/UserContext';
 
 function App() {
@@ -14,16 +14,13 @@ function App() {
 
   return (
     <div className="App">
-      <UserContext.Provider value={{user, profile, setProfile, isLoading, authProfile, updateProfile}}>
+      <UserContext.Provider value={{user, signup, login, profile, setProfile, isLoading, authProfile, updateProfile}}>
         {console.log("USER:",user, profile)}
       <BrowserRouter>
         <Nav 
           logout={logout}
         />
-        <Routes 
-          login={login}
-          signup={signup}
-        />
+        <Routes/>
       </BrowserRouter>
       </UserContext.Provider>
     </div>

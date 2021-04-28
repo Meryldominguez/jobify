@@ -1,8 +1,10 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import App from './App';
+import {commonBeforeEach, commonAfterEach  } from "./_testCommon";
 
-test('renders learn react link', () => {
+beforeEach(commonBeforeEach)
+afterEach(commonAfterEach)
+
+test('Smoke test', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
 });

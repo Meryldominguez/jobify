@@ -1,6 +1,5 @@
 import React from 'react'
-import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { ListGroup} from 'react-bootstrap'
 import {v4 as uuid} from "uuid"
 import { useFetchJobs } from '../hooks/useFetch'
 import Job from './Job'

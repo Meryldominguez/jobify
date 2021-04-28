@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react"
-import { useHistory } from "react-router"
 import JoblyApi from "../api"
 
 const useAuth = () => {
     const [user, setUser] = useState()
-    const history = useHistory()
     
     useEffect(()=>{
         if (window.localStorage.username) {
@@ -39,7 +37,7 @@ const useAuth = () => {
     const logout = ()=>{
         window.localStorage.clear()
         setUser()
-        window.location.reload()
+        window.open('/', '_self')
     }
 
     return [user, signup, login, logout]
