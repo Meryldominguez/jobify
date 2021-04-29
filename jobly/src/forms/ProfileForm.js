@@ -129,12 +129,16 @@ const ProfileForm = () => {
             </Form.Text>
         </Form.Group>
         <Row>
-            <Col xs={9}>
-                <Button variant="primary" block type="submit" >
-                    Signup
+            <Col xs={8}>
+                <Button 
+                    variant="primary" 
+                    block 
+                    type="submit" 
+                    >
+                    Edit Profile
                 </Button>
             </Col>
-            <Col xs={3}>
+            <Col xs={4}>
                 <Button 
                     variant="danger" 
                     block 

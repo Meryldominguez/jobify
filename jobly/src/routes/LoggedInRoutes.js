@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Link} from "react-router-dom"
+import { Route, Link, Redirect} from "react-router-dom"
 import { Jumbotron } from "react-bootstrap"
 
 import Companies from "../components/Companies"
@@ -30,7 +30,6 @@ const LoggedInRoutes = ({username}) => {
     <Route exact path="/jobs" component={JobList} />
 
     <Route exact path="/profile" component={ProfileForm} />
-
     </>
   )
 }

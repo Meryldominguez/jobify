@@ -12,15 +12,16 @@ function App() {
 
   let [[profile, setProfile], isLoading, authProfile, updateProfile] = useGetUserProfile(user?user.username:undefined)
 
-  return (
+  return !isLoading &&(
     <div className="App">
       <UserContext.Provider value={{user, signup, login, profile, setProfile, isLoading, authProfile, updateProfile}}>
-        {console.log("USER:",user, profile)}
+        {console.log("USER:",Boolean(user),"Profile:",profile, isLoading)}
       <BrowserRouter>
-        <Nav 
-          logout={logout}
-        />
-        <Routes/>
+        {!isLoading &&
+        <>
+        <Nav logout={logout}/>
+        <Routes profile={profile}/>
+        </>}
       </BrowserRouter>
       </UserContext.Provider>
     </div>

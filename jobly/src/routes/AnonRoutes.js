@@ -9,7 +9,7 @@ import UserContext from '../context/UserContext'
 const AnonRoutes = () => {
 
   const {login, signup } = useContext(UserContext)
-  
+
   return (
       <>
     <Route exact path="/">
@@ -28,7 +28,6 @@ const AnonRoutes = () => {
    <Route exact path="/signup">
      <SignupForm signup={(data)=>signup(data)}/>
    </Route>
-   <Redirect to="/" />
     </>
   )
 }
