@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Link, Redirect} from "react-router-dom"
+import { Route, Link, Redirect, Switch} from "react-router-dom"
 import { Jumbotron } from "react-bootstrap"
 
 import Companies from "../components/Companies"
@@ -12,7 +12,7 @@ import ProfileForm from "../forms/ProfileForm"
 const LoggedInRoutes = ({username}) => {
 
   return (
-      <>
+      <Switch >
     <Route exact path="/">
     <Jumbotron>
       <h1>Hello, {username}</h1>
@@ -30,7 +30,8 @@ const LoggedInRoutes = ({username}) => {
     <Route exact path="/jobs" component={JobList} />
 
     <Route exact path="/profile" component={ProfileForm} />
-    </>
+    <Redirect to="/" />
+    </Switch>
   )
 }
  

@@ -20,7 +20,7 @@ function App() {
         {!isLoading &&
         <>
         <Nav logout={logout}/>
-        <Routes profile={profile}/>
+        <Routes user={user} />
         </>}
       </BrowserRouter>
       </UserContext.Provider>

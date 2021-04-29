@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Route, Link, Redirect } from "react-router-dom"
+import { Route, Link, Redirect, Switch } from "react-router-dom"
 import { Jumbotron } from "react-bootstrap"
 
 import LoginForm from "../forms/LoginForm"
@@ -11,7 +11,7 @@ const AnonRoutes = () => {
   const {login, signup } = useContext(UserContext)
 
   return (
-      <>
+      <Switch>
     <Route exact path="/">
       <Jumbotron>
           <h1>Welcome!</h1>
@@ -28,7 +28,8 @@ const AnonRoutes = () => {
    <Route exact path="/signup">
      <SignupForm signup={(data)=>signup(data)}/>
    </Route>
-    </>
+   <Redirect to="/"/>
+    </ Switch>
   )
 }
  

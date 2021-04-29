@@ -10,7 +10,7 @@ import AnonRoutes from "./AnonRoutes";
 
 
 
-function Routes({profile}) {
+function Routes({user}) {
   
   return (
       <div className="Content-Container">
@@ -18,13 +18,10 @@ function Routes({profile}) {
       <Pagination.Prev onClick={history.goBack}/>
       <Pagination.Next  onClick={history.goForward}/>
         </Pagination> */}
-      <Switch>
-          {profile?
-          <LoggedInRoutes username={profile.username}/>
+          {user ?
+          <LoggedInRoutes username={user.username}/>
           :
           <AnonRoutes />}
-        <Redirect to="/" />
-      </Switch>  
       </div>)
 }
 export default Routes;
