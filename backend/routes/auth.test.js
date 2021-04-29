@@ -28,6 +28,7 @@ describe("POST /auth/token", function () {
         });
     expect(resp.body).toEqual({
       "token": expect.any(String),
+      "username": "u1"
     });
   });
 
