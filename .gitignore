@@ -13,6 +13,7 @@
 # production
 /build
 /jobly/build
+/jobly/build/static
 
 # misc
 .DS_Store
