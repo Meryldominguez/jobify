@@ -20,7 +20,7 @@ const Job = ({id, title, companyHandle, companyName, salary, equity, withApplyBu
       setAlerts([...alerts,{variant:"success", msg:companyName?`Applied to ${title} at ${companyName}.`:`Applied to ${title} Job.`}])
     } catch (error) {
       
-      setAlerts([error.map(e=>{
+      setAlerts([...alerts,...error.map(e=>{
         if (e.includes("No job")) e="There was a problem with applying to that job. Please try again later."
         return {variant:"danger",msg:e}
       }),...alerts ])

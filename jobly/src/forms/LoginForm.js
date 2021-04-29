@@ -30,9 +30,9 @@ const LoginForm = ({login}) => {
                 username:"",
                 password:""
             })
-            setAlerts(error.map(e=>[...error].push({variant:"danger",msg:e})) )
-        }
-              };
+            setAlerts([...alerts,...error.map(e=>{return {variant:"danger",msg:e}})] )
+            }
+    };
 
     const handleChange = evt => {
         const {name,value} = evt.target;

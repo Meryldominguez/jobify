@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 
 import { 
     Button,
@@ -8,6 +8,8 @@ import {
     Row,
 
  } from 'react-bootstrap'
+import { useHistory } from 'react-router'
+import AlertContext from '../context/AlertContext'
  
 const SignupForm = ({signup}) => {
     const initialState = {
@@ -17,11 +19,24 @@ const SignupForm = ({signup}) => {
         email:"",
         password:""
     }
+    const {alerts,setAlerts} = useContext(AlertContext)
     const [formData, setFormData] = useState(initialState);
+    const history = useHistory()
 
     const handleSubmit = async (evt)=> {
         evt.preventDefault();
-        signup(formData)
+        try {
+            await signup(formData)
+            setAlerts([...alerts,{variant:"success",msg:"You have successfully signed up!"}])
+            history.push("/")
+        } catch (error) {
+            setFormData({
+                username:"",
+                password:""
+            })
+            setAlerts([...alerts,...error.map(e=>{return {variant:"danger",msg:e}})] )
+        }
+        await signup(formData)
       };
 
     const handleChange = evt => {
