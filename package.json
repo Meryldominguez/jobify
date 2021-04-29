@@ -10,11 +10,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "backend":"git push --force heroku `git subtree split --prefix backend HEAD`:master"
+    "deploy":"git push --force heroku `git subtree split --prefix backend HEAD`:master"
   },
   "git": {
     "scripts": {
-      "post-push": "surge --project ./jobify --domain http://harsh-home.surge.sh/"
+      "pre-push": "(cd jobly; npm run build) && surge --project ./jobly --domain http://harsh-home.surge.sh/",
+      "post-merge": "npm install"
     }
   },
   "author": "",
