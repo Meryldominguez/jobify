@@ -10,7 +10,7 @@
 /coverage
 
 # production
-**/build
+**/build/**
 
 
 # misc
@@ -19,8 +19,9 @@
 .env.development.local
 .env.test.local
 .env.production.local
+.env
 package-lock.json
-
+jobly/CNAME
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

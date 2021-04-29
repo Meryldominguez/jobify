@@ -9,15 +9,6 @@
   "name": "3.0jobly",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "deploy":"git push --force heroku `git subtree split --prefix backend HEAD`:master"
-  },
-  "git": {
-    "scripts": {
-      "pre-push": "(cd jobly; npm run build) && surge --project ./jobly --domain http://harsh-home.surge.sh/",
-      "post-merge": "npm install"
-    }
-  },
   "author": "",
   "license": "ISC",
   "description": ""
