@@ -10,14 +10,16 @@ import {
  } from 'react-bootstrap'
 import LoadingSpinner from '../components/Spinner'
 import UserContext from '../context/UserContext'
-import AlertContainer from '../components/AlertContainer'
+import AlertContext from '../context/AlertContext'
  
 const ProfileForm = () => {
 
     const {user,profile, authProfile, isLoading, updateProfile, setProfile}= useContext(UserContext)    
     const [formData, setFormData] = useState(profile);
-    const [alerts, setAlerts] = useState([])
+    const [dirtyForm, setDirtyForm] = useState(false);
 
+    const {alerts, setAlerts} = useContext(AlertContext)
+    
     useEffect(()=>{
         let email, firstName, lastName
         if (profile) {
@@ -30,20 +32,17 @@ const ProfileForm = () => {
 
     const handleSubmit = async (evt)=> {
         evt.preventDefault();
-        setAlerts([])
         try {
             if(!formData.password) throw Array("Password required to confirm changes!")
             if (await authProfile(formData.password)){
                 await updateProfile(formData)
                 setFormData({...formData,password:""})
             } 
-            
+            setAlerts([...alerts,{variant:"success", msg:"Profile updated!"}])
         } catch (error) {
             console.log("handle",error)
             setFormData({...formData, password:""})
-            let alertArr=[]
-            error.forEach(e=>alertArr.push({key:uuid(),msg:e})) 
-            setAlerts(alertArr)
+            setAlerts([...alerts,{variant:"danger", msg:error}])
         }
         
     };
@@ -54,6 +53,10 @@ const ProfileForm = () => {
             ...formData,
             [name]:value,
         });
+
+        (profile.email ===formData.email &&
+            profile.firstName === formData.firstName &&
+            profile.lastName === formData.lastName)? setDirtyForm(true) : setDirtyForm(false)
     };
     const resetForm = ()=>{
         const {email, firstName, lastName } = profile
@@ -130,13 +133,22 @@ const ProfileForm = () => {
         </Form.Group>
         <Row>
             <Col xs={8}>
+                {dirtyForm?
                 <Button 
                     variant="primary" 
                     block 
                     type="submit" 
                     >
                     Edit Profile
-                </Button>
+                </Button> :
+                <Button 
+                variant="primary" 
+                disabled
+                block
+                type="submit" 
+                >
+                Edit Profile
+            </Button>}
             </Col>
             <Col xs={4}>
                 <Button 
@@ -149,7 +161,6 @@ const ProfileForm = () => {
             </Col>
         </Row>
     </Form>
-        <AlertContainer alerts={alerts} />
     </Card>
     </Col>
     :

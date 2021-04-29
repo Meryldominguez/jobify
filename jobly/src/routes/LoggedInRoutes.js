@@ -10,7 +10,7 @@ import ProfileForm from "../forms/ProfileForm"
 
  
 const LoggedInRoutes = ({username}) => {
-
+  
   return (
       <Switch >
     <Route exact path="/">
@@ -29,7 +29,9 @@ const LoggedInRoutes = ({username}) => {
 
     <Route exact path="/jobs" component={JobList} />
 
-    <Route exact path="/profile" component={ProfileForm} />
+    <Route exact path="/profile">
+      <ProfileForm />
+    </Route>
     <Redirect to="/" />
     </Switch>
   )

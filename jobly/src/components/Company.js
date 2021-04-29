@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {v4 as uuid} from "uuid"
 import {
   Badge, 
@@ -15,17 +15,21 @@ import { useFetchCompany } from "../hooks/useFetch"
 import Job from './Job'
 import LoadingSpinner from './Spinner'
 
+import UserContext from "../context/UserContext"
+
 const Company = () => {
 
     const { handle } = useParams()
 
     const [ company ] = useFetchCompany(handle)
+    const { profile} = useContext(UserContext)
+
 
   return (
     <>
-    {company && handle?
+    {company && handle && profile?
     (<Card >
-      
+
       <Card.Body> 
         <Row>
           <Col xs={10}>
@@ -43,7 +47,8 @@ const Company = () => {
         <ListGroup>
           {company.jobs.map(({companyHandle, ...items})=>(
             <ListGroupItem key={uuid()}>
-              <Job {...items}/>
+              {console.log(items)}
+              <Job withApplyButton {...items}/>
             </ListGroupItem>
           ))}
       </ListGroup>

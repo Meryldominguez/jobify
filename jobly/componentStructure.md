@@ -18,5 +18,7 @@ issues:
   - [loggedInUser, Login(user, password), Logout()]
   - includes a useEffect to check for user in localstorage?
   - use Context in App to store this -->
-- adding user on context
+<!-- - adding user on context -->
 - rerouting after SIGNUP doesnt work
+- add error handling/alerts for signupform
+- add job lists on profile

@@ -1,18 +1,17 @@
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 import {v4 as uuid} from "uuid"
 import { 
     Button,
     Form,
     Card,
-    Col,
-    Alert
+    Col
 } from 'react-bootstrap'
 import { useHistory } from 'react-router';
-import AlertContainer from '../components/AlertContainer';
+import AlertContext from '../context/AlertContext';
  
 const LoginForm = ({login}) => {
     const history = useHistory()
-    const [alerts, setAlerts] = useState([])
+    const {alerts,setAlerts} = useContext(AlertContext)
     
     const [formData, setFormData] = useState(
         {
@@ -22,20 +21,16 @@ const LoginForm = ({login}) => {
 
     const handleSubmit = async (evt)=> {
         evt.preventDefault();
-        setAlerts([])
         try {
             await login(formData)
+            setAlerts([...alerts,{variant:"success",msg:"You have successfully logged in!"}])
             history.push("/")
         } catch (error) {
-            console.log(error)
             setFormData({
                 username:"",
                 password:""
             })
-            let alertArr=[]
-            error.map(e=>alertArr.push({key:uuid(),msg:e})) 
-            setAlerts(alertArr)
-    
+            setAlerts(error.map(e=>[...error].push({variant:"danger",msg:e})) )
         }
               };
 
@@ -74,7 +69,6 @@ const LoginForm = ({login}) => {
             Login
         </Button>
     </Form>
-        <AlertContainer alerts={[...alerts]} />
     </Card>
     </Col>
   )

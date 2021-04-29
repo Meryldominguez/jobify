@@ -11,6 +11,7 @@ const useFetchCompanies = () => {
             const resp = await JoblyApi.getCompanies(query)
             setCompanies(resp)
             setIsLoading(false)
+            return resp
         }
         load()
     },[query])
@@ -23,11 +24,12 @@ const useFetchCompanies = () => {
 }
 
 const useFetchCompany = (handle) => {
-    const [company, setCompanies] = useState()
+    const [company, setCompany] = useState()
     useEffect(()=>{
         async function load(){
             const resp = await JoblyApi.getCompany(handle)
-            setCompanies(resp)
+            setCompany(resp)
+            return resp
         }
         load()
     },[handle])
@@ -37,10 +39,14 @@ const useFetchCompany = (handle) => {
 const useFetchJobs = () => {
     const [jobs, setJobs] = useState()
     useEffect(()=>{
-        JoblyApi.getJobs()
-            .then(resp=>setJobs(resp))
-    },[])
-    return [jobs]
+        async function load(){
+            const resp = await JoblyApi.getJobs()
+            setJobs(resp)
+            return resp
+        }
+        if (!jobs) load()
+    },[jobs])
+    return [jobs, setJobs]
 }
 const useGetUserProfile = (username) => {
     const [profile, setProfile] = useState()
@@ -52,10 +58,11 @@ const useGetUserProfile = (username) => {
             const res = await JoblyApi.getProfile(username)
             setProfile(res.user)
             setIsLoading(false)
+            return res
             }
         if (username) load()
         setIsLoading(false)
-    },[username, isLoading])
+    },[username,isLoading])
 
     const updateProfile = async (data) => {
         const resp = await JoblyApi.patchProfile(username,data)
@@ -67,7 +74,14 @@ const useGetUserProfile = (username) => {
         return resp.token? true: false
     }
 
-    return [[profile,setProfile], isLoading, authProfile, updateProfile]
+    const Apply = async (jobID) => {
+        const resp = await JoblyApi.apply(username,jobID)
+        setIsLoading(true)
+        return resp
+        
+    }
+
+    return [[profile,setProfile], isLoading, authProfile, updateProfile, Apply]
 }
 
-export {useFetchCompanies,useFetchJobs, useFetchCompany, useGetUserProfile}
+export {useFetchCompanies, useFetchJobs, useFetchCompany, useGetUserProfile}

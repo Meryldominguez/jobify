@@ -88,13 +88,13 @@ class JoblyApi {
   /** User profile edit */
   static async patchProfile(username,{password,...data}) {
     JoblyApi.token = window.localStorage.token
-    let res = await this.request(`users/${username}`, data, "patch");
+    let res = await this.request(`users/${username}`,data, "patch");
     return res;
   }
   /** User apply to jobs */
   static async apply(username,jobId) {
     JoblyApi.token = window.localStorage.token
-    let res = await this.request(`users/${username}/jobs/${jobId}`, "post");
+    let res = await this.request(`users/${username}/jobs/${jobId}`,{},"post");
     return res;
   }
 
