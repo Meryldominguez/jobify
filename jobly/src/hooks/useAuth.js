@@ -15,9 +15,14 @@ const useAuth = () => {
 
     const signup = async (formData)=>{
         const resp = await JoblyApi.Signup(formData)
+        console.log(resp)
         if (!resp.error){
+            JoblyApi.token = resp.token
             window.localStorage.setItem("username",resp.username)
             window.localStorage.setItem("token",resp.token)
+
+            setUser({...resp})
+            return 
         }
         return resp.error
     }
@@ -29,6 +34,7 @@ const useAuth = () => {
             JoblyApi.token = resp.token
             window.localStorage.setItem("username",resp.username)
             window.localStorage.setItem("token",resp.token)
+
             setUser({...resp, username})
             return  
         }

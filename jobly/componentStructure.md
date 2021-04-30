@@ -21,4 +21,3 @@ issues:
 <!-- - adding user on context -->
 - rerouting after SIGNUP doesnt work
 - add error handling/alerts for signupform
-- add job lists on profile

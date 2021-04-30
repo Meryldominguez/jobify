@@ -13,7 +13,6 @@ const Job = ({id, title, companyHandle, companyName, salary, equity, withApplyBu
 
   const handleApplication = async()=>{
     try {
-      console.log(id)
       await apply(id)
 
       setAlerts([...alerts,{variant:"success", msg:companyName?`Applied to ${title} at ${companyName}.`:`Applied to ${title} Job.`}])
@@ -29,7 +28,6 @@ const Job = ({id, title, companyHandle, companyName, salary, equity, withApplyBu
   return (
     <Card >
       <Card.Body> 
-        {console.log(withApplyButton)}
         <Card.Title className="text-left">
           {title}
         </Card.Title>

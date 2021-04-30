@@ -6,6 +6,17 @@
     "git-scripts": "^0.4.3",
     "surge": "^0.23.0"
   },
+  "scripts": {
+    "backend":"git push --force heroku `git subtree split --prefix backend HEAD`:master",
+    "frontend":"cd jobly; REACT_APP_BASE_URL=https://meryl-jobify.herokuapp.com npm run build; cp build/index.html build/200.html; surge build",
+    "deploy":"npm run backend; npm run frontend"
+  },
+  "git": {
+    "scripts": {
+      "pre-push": "",
+      "post-merge": ""
+    }
+  },
   "name": "3.0jobly",
   "version": "1.0.0",
   "main": "index.js",

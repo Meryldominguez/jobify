@@ -47,7 +47,6 @@ const Company = () => {
         <ListGroup>
           {company.jobs.map(({companyHandle, ...items})=>(
             <ListGroupItem key={uuid()}>
-              {console.log(items)}
               <Job withApplyButton {...items}/>
             </ListGroupItem>
           ))}

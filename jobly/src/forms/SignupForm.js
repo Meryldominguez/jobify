@@ -26,15 +26,14 @@ const SignupForm = ({signup}) => {
     const handleSubmit = async (evt)=> {
         evt.preventDefault();
         try {
+            console.log("triggered")
             await signup(formData)
             setAlerts([...alerts,{variant:"success",msg:"You have successfully signed up!"}])
             history.push("/")
         } catch (error) {
-            setFormData({
-                username:"",
-                password:""
-            })
-            setAlerts([...alerts,...error.map(e=>{return {variant:"danger",msg:e}})] )
+            console.log(error)
+            setAlerts([...alerts,...error.map(e=>{console.log(e)
+                return {variant:"danger",msg:e}})] )
         }
         await signup(formData)
       };

@@ -13,9 +13,8 @@ import AlertContext from '../context/AlertContext'
  
 const ProfileForm = () => {
 
-    const {user,profile, authProfile, isLoading, updateProfile, setProfile}= useContext(UserContext)    
+    const {profile, authProfile, isLoading, updateProfile, setProfile}= useContext(UserContext)    
     const [formData, setFormData] = useState(profile);
-    const [dirtyForm, setDirtyForm] = useState(false);
 
     const {alerts, setAlerts} = useContext(AlertContext)
     
@@ -24,7 +23,9 @@ const ProfileForm = () => {
         if (profile) {
             email = profile.email
             firstName = profile.firstName
-            lastName = profile.lastName} 
+            lastName = profile.lastName
+            } 
+            
         setFormData({email, firstName, lastName, password:""})
     },[profile])
 
@@ -34,17 +35,18 @@ const ProfileForm = () => {
         try {
             if(!formData.password) throw Array("Password required to confirm changes!")
             if (await authProfile(formData.password)){
-                await updateProfile(formData)
-                setFormData({...formData,password:""})
+                const {username,...valid} = formData
+                await updateProfile({...valid})
+                setFormData({...formData,username,password:""})
             } 
             setAlerts([...alerts,{variant:"success", msg:"Profile updated!"}])
         } catch (error) {
-            console.log("handle",error)
             setFormData({...formData, password:""})
             setAlerts([...alerts,{variant:"danger", msg:error}])
         }
         
     };
+    
 
     const handleChange = evt => {
         const {name,value} = evt.target;
@@ -52,11 +54,13 @@ const ProfileForm = () => {
             ...formData,
             [name]:value,
         });
-
-        (profile.email ===formData.email &&
-            profile.firstName === formData.firstName &&
-            profile.lastName === formData.lastName)? setDirtyForm(true) : setDirtyForm(false)
     };
+
+    const isFormDirty = ()=>{
+        return (profile.email === formData.email &&
+            profile.firstName === formData.firstName &&
+            profile.lastName === formData.lastName)? false : true
+    }
     const resetForm = ()=>{
         const {email, firstName, lastName } = profile
         setFormData({
@@ -72,7 +76,7 @@ const ProfileForm = () => {
     {!isLoading && profile?
     <Col xs={8} className="m-auto">
     <Card className="p-3 my-5">
-        <h4>{profile.username}'s profile</h4>
+        <h4>{profile.username|| ""}'s profile</h4>
     <Form onSubmit={handleSubmit} className="my-4">
         <Form.Group controlId="formBasicEmail">
             <Form.Control 
@@ -80,7 +84,7 @@ const ProfileForm = () => {
                 type="email" 
                 placeholder="Enter email"
                 name="email"
-                value={formData.email}
+                value={formData.email|| ""}
                 onChange={handleChange}
                 />
         </Form.Group>
@@ -88,7 +92,7 @@ const ProfileForm = () => {
             <Form.Control 
                 disabled
                 type="text" 
-                placeholder={user.username}
+                placeholder={profile.username|| ""}
                 name="username"
                 onChange={handleChange}
                 />
@@ -101,7 +105,7 @@ const ProfileForm = () => {
                         type="text" 
                         placeholder="First Name"
                         name="firstName"
-                        value={formData.firstName}
+                        value={formData.firstName|| ""}
                         onChange={handleChange}
                     />
                 </Col>
@@ -111,7 +115,7 @@ const ProfileForm = () => {
                         type="text" 
                         placeholder="Last Name"
                         name="lastName"
-                        value={formData.lastName}
+                        value={formData.lastName|| ""}
                         onChange={handleChange}
                      />
                 </Col>
@@ -123,7 +127,7 @@ const ProfileForm = () => {
                 type="password" 
                 placeholder="Password"
                 name="password"
-                value={formData.password}
+                value={formData.password|| ""}
                 onChange={handleChange}
             />
             <Form.Text className="text-muted text-left">
@@ -132,14 +136,15 @@ const ProfileForm = () => {
         </Form.Group>
         <Row>
             <Col xs={8}>
-                {dirtyForm?
+                {isFormDirty()?
                 <Button 
                     variant="primary" 
                     block 
                     type="submit" 
                     >
                     Edit Profile
-                </Button> :
+                </Button> 
+                :
                 <Button 
                 variant="primary" 
                 disabled

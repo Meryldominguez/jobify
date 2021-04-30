@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
+const BASE_URL = process.env.REACT_APP_BASE_URL ||"http://localhost:3001";
 
 /** API Class.
  *
@@ -69,7 +69,6 @@ class JoblyApi {
   /** User Login */
   static async Login(formData) {
     let res = await this.request(`auth/token`,formData,"post");
-    res.username=formData.username
     return res;
   }
 
